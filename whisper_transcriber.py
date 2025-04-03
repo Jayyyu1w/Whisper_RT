@@ -22,7 +22,10 @@ class WhisperTranscriber:
         if audio_chunk is None or len(audio_chunk) == 0:
             return None
 
-        segments, _ = self.model.transcribe(audio_chunk, beam_size=beam_size, temperature=temperature)
+        segments, _ = self.model.transcribe(audio_chunk, beam_size=beam_size,
+                                            temperature=temperature,
+                                            vad_filter=True,
+                                            word_timestamps=True,)
 
         transcribed_text = [segment.text for segment in segments]
         return transcribed_text
